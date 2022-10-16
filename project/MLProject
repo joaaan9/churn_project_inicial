@@ -1,0 +1,23 @@
+name: client_churn_multistep
+
+conda_env: conda.yaml
+
+entry_points:
+    process_data_client_churn:
+        command: "python client_churn/process_data_client_churn.py"
+
+    model_client_churn:
+        parameters:
+            data_path: string
+            run_id: string
+            ph: int
+            cp: int
+            register_model_name: str
+        command: "python client_churn/model_client_churn.py --data_path {data_path} --run_id {run_id} --ph {ph} --cp {cp} --register_model_name {register_model_name}"
+
+    main:
+        parameters:
+            ph: int
+            cp: int
+            register_model_name: str
+        command: "python main.py --ph {ph} --cp {cp} --register_model_name {register_model_name}"

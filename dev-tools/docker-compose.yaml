@@ -1,0 +1,19 @@
+version: '2.1'
+services:
+    postgres_ml:
+        image: postgres:9.6
+        container_name: postgres_ml
+        environment:
+            - POSTGRES_USER=mlflow
+            - POSTGRES_PASSWORD=mlflow
+            - POSTGRES_DB=mlflow
+        ports:
+          - "5432:5432"
+    mlflow:
+      image: mlflow_server
+      restart: always
+      build: .
+      ports:
+        - "5000:5000"
+      depends_on:
+        - postgres_ml
